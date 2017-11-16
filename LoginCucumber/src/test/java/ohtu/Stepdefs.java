@@ -22,6 +22,18 @@ public class Stepdefs {
         inputLines.add("login");
     }
 
+    @Given("^command new user is selected$")
+    public void command_new_user_selected() throws Throwable {
+        inputLines.add("new");
+    }
+    
+    @Given("^user \"([^\"]*)\" with password \"([^\"]*)\" is created$")
+    public void command_new_user_created(String username, String password) throws Throwable {
+        inputLines.add("new");
+        inputLines.add(username);
+        inputLines.add(password);
+    }
+    
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are entered$")
     public void a_username_and_password_are_entered(String username, String password) throws Throwable {
        inputLines.add(username);
@@ -31,6 +43,7 @@ public class Stepdefs {
        app = new App(io, auth);
        app.run();
     }
+    
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expectedOutput) throws Throwable {
