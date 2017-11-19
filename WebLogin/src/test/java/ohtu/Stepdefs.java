@@ -20,6 +20,13 @@ public class Stepdefs {
         WebElement element = driver.findElement(By.linkText("login"));       
         element.click();          
     } 
+    
+    @Given("^command new user is selected$") 
+    	public void newuser_selected() throws Throwable {
+            driver.get(baseUrl);
+            WebElement element = driver.findElement(By.linkText("register new user"));       
+            element.click();
+    	}
 
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
     public void username_and_password_are_given(String username, String password) throws Throwable {
@@ -31,6 +38,23 @@ public class Stepdefs {
         element.submit();  
     }
 
+    @When ("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void newuser_username_and_password_are_given(String username, String password) throws Throwable {
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("submit"));
+        element.submit();
+    }
+    
+    @Then("^a new user is created$")
+    public void new_user_created() throws Throwable {
+    	pageHasContent("Welcome to Ohtu Application!");
+    }
+    
     @Then("^system will respond \"([^\"]*)\"$")
     public void system_will_respond(String pageContent) throws Throwable {
         assertTrue(driver.getPageSource().contains(pageContent));
@@ -43,6 +67,11 @@ public class Stepdefs {
 
     @When("^correct username \"([^\"]*)\" and incorrect password \"([^\"]*)\" are given$")
     public void username_and_incorrect_password_are_given(String username, String password) throws Throwable {
+        logInWith(username, password);
+    }
+
+    @When("^incorrect username \"([^\"]*)\" and incorrect password \"([^\"]*)\" are given$")
+    public void incorrect_username_and_incorrect_password_are_given(String username, String password) throws Throwable {
         logInWith(username, password);
     }
     

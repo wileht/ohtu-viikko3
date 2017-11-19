@@ -10,7 +10,9 @@ public class ServerRule extends ExternalResource {
     private final int port;
 
     public ServerRule(int port) {
-        this.port = port;
+    	System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\Documents\\chromedriver.exe");
+    	
+    	this.port = port;
     }
 
     @Override
